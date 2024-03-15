@@ -3,7 +3,6 @@ package com.phdljr.springbootftp;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +15,10 @@ class SpringbootFtpApplicationTests {
     FtpRemoteFileTemplate ftpRemoteFileTemplate;
 
     @Test
-    void upload_test(){
+    void upload_test() {
         ftpRemoteFileTemplate.execute(session -> {
             File file = new File("test.txt");
-            try(FileInputStream fileInputStream = new FileInputStream(file)){
+            try (FileInputStream fileInputStream = new FileInputStream(file)) {
                 session.write(fileInputStream, "/HDD1/test");
             }
             return null;
@@ -27,9 +26,9 @@ class SpringbootFtpApplicationTests {
     }
 
     @Test
-    void download_test(){
+    void download_test() {
         ftpRemoteFileTemplate.execute(session -> {
-            try(ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()){
+            try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
                 session.read("/HDD1/test", byteArrayOutputStream);
                 System.out.println(byteArrayOutputStream);
             }
